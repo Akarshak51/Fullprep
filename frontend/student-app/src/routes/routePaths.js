@@ -1,0 +1,18 @@
+export const ROUTES = {
+  landing: '/',
+  login: '/login',
+  signup: '/signup',
+  dashboard: '/dashboard',
+  problems: '/problems',
+  problemDetail: (slug = ':slug') => `/problems/${slug}`,
+  learningPaths: '/learning-paths',
+  learningPathDetail: (slug = ':slug') => `/learning-paths/${slug}`,
+  contests: '/contests',
+  contestDetail: (id = ':id') => `/contests/${id}`,
+  leaderboard: '/leaderboard',
+  profile: (username = ':username') => `/profile/${username}`,
+  myProfile: '/profile/me',
+  notifications: '/notifications',
+  search: '/search',
+  settings: '/settings',
+}

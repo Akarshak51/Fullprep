@@ -1,0 +1,15 @@
+export const ROUTES = {
+  overview: '/',
+  users: '/users',
+  problems: '/problems',
+  problemNew: '/problems/new',
+  problemEdit: (id = ':id') => `/problems/${id}/edit`,
+  learningPaths: '/learning-paths',
+  learningPathEdit: (id = ':id') => `/learning-paths/${id}/edit`,
+  contests: '/contests',
+  contestEdit: (id = ':id') => `/contests/${id}/edit`,
+  analytics: '/analytics',
+  reports: '/reports',
+  config: '/config',
+  login: '/login',
+}

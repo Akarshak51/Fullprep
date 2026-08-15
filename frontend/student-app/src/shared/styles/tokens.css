@@ -1,0 +1,24 @@
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --color-bg: 248 250 252;
+  --color-bg-surface: 255 255 255;
+  --color-bg-raised: 241 245 249;
+  --color-bg-overlay: 226 232 240;
+  --color-border: 203 213 225;
+  --color-border-subtle: 226 232 240;
+  --color-ink: 15 23 42;
+  --color-ink-muted: 71 85 105;
+  --color-ink-faint: 100 116 139;
+}
+
+html.dark {
+  --color-bg: 11 15 20;
+  --color-bg-surface: 17 24 35;
+  --color-bg-raised: 22 31 44;
+  --color-bg-overlay: 28 39 51;
+  --color-border: 34 48 63;
+  --color-border-subtle: 26 37 49;
+  --color-ink: 230 237 243;
+  --color-ink-muted: 139 154 171;
+  --color-ink-faint: 91 107 124;
+}
