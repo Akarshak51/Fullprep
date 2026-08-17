@@ -21,19 +21,19 @@ export default {
           faint: 'rgb(var(--color-ink-faint) / <alpha-value>)',
         },
         brand: {
-          DEFAULT: '#2FD1A6',
-          hover: '#26B992',
-          soft: '#0F2E27',
+          DEFAULT: 'rgb(var(--color-brand) / <alpha-value>)',
+          hover: 'rgb(var(--color-brand-hover) / <alpha-value>)',
+          soft: 'rgb(var(--color-brand-soft) / <alpha-value>)',
         },
         violet: {
-          DEFAULT: '#8B7CF6',
-          soft: '#241F3D',
+          DEFAULT: 'rgb(var(--color-violet) / <alpha-value>)',
+          soft: 'rgb(var(--color-violet-soft) / <alpha-value>)',
         },
         amber: {
-          DEFAULT: '#F5B342',
-          soft: '#332711',
+          DEFAULT: 'rgb(var(--color-amber) / <alpha-value>)',
+          soft: 'rgb(var(--color-amber-soft) / <alpha-value>)',
         },
-        easy: '#2FD1A6',
+        easy: '#2499E8',
         medium: '#F5B342',
         hard: '#F0654C',
       },
@@ -43,8 +43,8 @@ export default {
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       boxShadow: {
-        card: '0 1px 0 0 rgba(255,255,255,0.03) inset, 0 8px 24px -12px rgba(0,0,0,0.5)',
-        glow: '0 0 0 1px rgba(47,209,166,0.4), 0 0 24px -4px rgba(47,209,166,0.35)',
+        card: '0 1px 0 0 rgba(255,255,255,0.75) inset, 0 12px 28px -18px rgba(50,65,110,0.28)',
+        glow: '0 0 0 1px rgb(var(--color-brand) / 0.35), 0 0 24px -4px rgb(var(--color-brand) / 0.3)',
       },
       borderRadius: {
         xl: '0.875rem',

@@ -28,22 +28,24 @@ export default function ProfilePage() {
       <StatsOverview profile={profile} />
       <Tabs tabs={TABS} active={tab} onChange={setTab} />
 
-      {tab === 'overview' && (
-        <div className="grid gap-5 lg:grid-cols-3">
-          <div className="flex flex-col gap-5 lg:col-span-2">
-            <SubmissionHeatmap data={profile.submissionHeatmap} />
-            <ContestRatingChart history={profile.ratingHistory} />
+      <div key={tab} className="animate-fadeUp">
+        {tab === 'overview' && (
+          <div className="grid gap-5 lg:grid-cols-3">
+            <div className="flex flex-col gap-5 lg:col-span-2">
+              <SubmissionHeatmap data={profile.submissionHeatmap} />
+              <ContestRatingChart history={profile.ratingHistory} />
+            </div>
+            <div className="flex flex-col gap-5">
+              <LanguagesUsedChart languages={profile.languagesUsed} />
+              <BadgesList badges={profile.badges} />
+              <AchievementsGrid achievements={profile.achievements} />
+            </div>
           </div>
-          <div className="flex flex-col gap-5">
-            <LanguagesUsedChart languages={profile.languagesUsed} />
-            <BadgesList badges={profile.badges} />
-            <AchievementsGrid achievements={profile.achievements} />
-          </div>
-        </div>
-      )}
+        )}
 
-      {tab === 'solved' && <SolvedProblemsList problems={profile.solvedProblems} />}
-      {tab === 'bookmarks' && <BookmarksList bookmarks={profile.bookmarks} />}
+        {tab === 'solved' && <SolvedProblemsList problems={profile.solvedProblems} />}
+        {tab === 'bookmarks' && <BookmarksList bookmarks={profile.bookmarks} />}
+      </div>
     </div>
   )
 }

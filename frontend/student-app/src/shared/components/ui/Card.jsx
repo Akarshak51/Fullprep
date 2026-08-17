@@ -4,9 +4,9 @@ export default function Card({ className, children, hover = false, padded = true
   return (
     <div
       className={clsx(
-        'rounded-xl border border-border bg-bg-surface shadow-card',
+        'rounded-xl border border-border bg-bg-surface shadow-card transition-all duration-300',
         padded && 'p-5',
-        hover && 'transition-colors hover:border-ink-faint cursor-pointer',
+        hover && 'cursor-pointer hover:-translate-y-0.5 hover:border-brand/35 hover:shadow-lg',
         className
       )}
       {...props}

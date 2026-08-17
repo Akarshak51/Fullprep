@@ -20,6 +20,13 @@ body {
   color: rgb(var(--color-ink));
 }
 
+.page-enter > * { animation: page-enter 520ms var(--ease-out) both; }
+.page-enter > *:nth-child(2) { animation-delay: 55ms; }
+.page-enter > *:nth-child(3) { animation-delay: 105ms; }
+.page-enter > *:nth-child(4) { animation-delay: 155ms; }
+
+html.dark .shadow-card { box-shadow: 0 1px 0 rgb(255 255 255 / 0.025) inset, 0 18px 38px -24px rgb(0 0 0 / 0.88); }
+
 .settings-section {
   animation: settings-enter 420ms var(--ease-out) both;
 }
@@ -48,7 +55,7 @@ body {
   50% { transform: translateY(-4px); }
 }
 
-::selection { background: rgba(47,209,166,0.3); color: #fff; }
+::selection { background: rgb(var(--color-brand) / 0.35); color: rgb(var(--color-ink)); }
 
 /* Slim custom scrollbar for a technical/editor feel */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
@@ -60,7 +67,12 @@ body {
   outline: none;
 }
 .focus-ring:focus-visible {
-  box-shadow: 0 0 0 2px rgb(var(--color-bg)), 0 0 0 4px #2FD1A6;
+  box-shadow: 0 0 0 2px rgb(var(--color-bg)), 0 0 0 4px rgb(var(--color-brand));
+}
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @layer components {

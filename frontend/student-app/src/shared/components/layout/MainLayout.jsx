@@ -7,7 +7,7 @@ export default function MainLayout() {
     <div className="min-h-screen min-h-[100dvh] bg-bg">
       <Navbar />
       <div className="container-page">
-        <main className="min-w-0 py-6">
+        <main className="page-enter min-w-0 py-6">
           <Outlet />
         </main>
       </div>
