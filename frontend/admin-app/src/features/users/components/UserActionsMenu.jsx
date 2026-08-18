@@ -17,7 +17,7 @@ export default function UserActionsMenu({ user, onSuspend, onRestore, onEdit }) 
         <MoreVertical size={15} />
       </button>
       {open && (
-        <div className="absolute right-0 top-full z-20 mt-1 w-44 overflow-hidden rounded-lg border border-border bg-bg-overlay py-1 shadow-card animate-fadeUp">
+        <div className="absolute bottom-full right-0 z-20 mb-1 w-44 overflow-hidden rounded-lg border border-border bg-bg-overlay py-1 shadow-card animate-fadeUp">
           <button onClick={() => { onEdit(user); setOpen(false) }} className="flex w-full items-center gap-2 px-3 py-2 text-sm text-ink-muted hover:bg-bg-raised hover:text-ink">
             <Pencil size={14} /> Edit user
           </button>

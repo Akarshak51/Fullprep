@@ -1,9 +1,10 @@
 import { Link, NavLink } from 'react-router-dom'
-import { Search, Bell, Menu, ShieldCheck } from 'lucide-react'
+import { Search, Bell, Menu, Moon, ShieldCheck, Sun } from 'lucide-react'
 import { initials } from '../../utils/formatters.js'
 import clsx from 'clsx'
 import { useState } from 'react'
 import { ROUTES } from '../../../routes/routePaths.js'
+import { useTheme } from '../../hooks/useTheme.js'
 
 const ADMIN_USER = { name: 'Priya Sharma', role: 'Super Admin' }
 
@@ -20,6 +21,7 @@ const NAV_LINKS = [
 
 export default function AdminTopbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { theme, toggleTheme } = useTheme()
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-bg/85 backdrop-blur-md">
@@ -48,6 +50,9 @@ export default function AdminTopbar() {
           <button className="relative flex h-9 w-9 items-center justify-center rounded-lg text-ink-muted hover:bg-bg-raised hover:text-ink">
             <Bell size={17} />
             <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-hard" />
+          </button>
+          <button aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} onClick={toggleTheme} className="flex h-9 w-9 items-center justify-center rounded-lg text-ink-muted transition-colors hover:bg-bg-raised hover:text-brand">
+            {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
           </button>
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-brand/30 to-violet/30 text-xs font-semibold text-ink">

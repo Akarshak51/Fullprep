@@ -8,10 +8,10 @@ export default function EngagementChart({ data = [] }) {
       <div className="mt-3 h-64">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
-            <CartesianGrid stroke="#22303F" strokeDasharray="3 3" />
-            <XAxis dataKey="day" tick={{ fill: '#5B6B7C', fontSize: 11 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fill: '#5B6B7C', fontSize: 11 }} axisLine={false} tickLine={false} />
-            <Tooltip contentStyle={{ background: '#161F2C', border: '1px solid #22303F', borderRadius: 8, fontSize: 12 }} />
+            <CartesianGrid stroke="rgb(var(--color-border))" strokeDasharray="3 3" />
+            <XAxis dataKey="day" tick={{ fill: 'rgb(var(--color-ink-faint))', fontSize: 11 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: 'rgb(var(--color-ink-faint))', fontSize: 11 }} axisLine={false} tickLine={false} />
+            <Tooltip contentStyle={{ background: 'rgb(var(--color-bg-raised))', border: '1px solid rgb(var(--color-border))', borderRadius: 8, fontSize: 12 }} />
             <Bar dataKey="submissions" fill="#8B7CF6" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>

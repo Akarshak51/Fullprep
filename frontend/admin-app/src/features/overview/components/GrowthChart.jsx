@@ -14,10 +14,10 @@ export default function GrowthChart({ data = [] }) {
                 <stop offset="95%" stopColor="#2FD1A6" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="#22303F" strokeDasharray="3 3" />
-            <XAxis dataKey="month" tick={{ fill: '#5B6B7C', fontSize: 11 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fill: '#5B6B7C', fontSize: 11 }} axisLine={false} tickLine={false} />
-            <Tooltip contentStyle={{ background: '#161F2C', border: '1px solid #22303F', borderRadius: 8, fontSize: 12 }} />
+            <CartesianGrid stroke="rgb(var(--color-border))" strokeDasharray="3 3" />
+            <XAxis dataKey="month" tick={{ fill: 'rgb(var(--color-ink-faint))', fontSize: 11 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: 'rgb(var(--color-ink-faint))', fontSize: 11 }} axisLine={false} tickLine={false} />
+            <Tooltip contentStyle={{ background: 'rgb(var(--color-bg-raised))', border: '1px solid rgb(var(--color-border))', borderRadius: 8, fontSize: 12 }} />
             <Area type="monotone" dataKey="users" stroke="#2FD1A6" strokeWidth={2} fill="url(#growthFill)" />
           </AreaChart>
         </ResponsiveContainer>

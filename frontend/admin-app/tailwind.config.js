@@ -5,13 +5,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: { DEFAULT: '#0B0F14', surface: '#111823', raised: '#161F2C', overlay: '#1C2733' },
-        border: { DEFAULT: '#22303F', subtle: '#1A2531' },
-        ink: { DEFAULT: '#E6EDF3', muted: '#8B9AAB', faint: '#5B6B7C' },
-        brand: { DEFAULT: '#2FD1A6', hover: '#26B992', soft: '#0F2E27' },
-        violet: { DEFAULT: '#8B7CF6', soft: '#241F3D' },
-        amber: { DEFAULT: '#F5B342', soft: '#332711' },
-        easy: '#2FD1A6', medium: '#F5B342', hard: '#F0654C',
+        bg: { DEFAULT: 'rgb(var(--color-bg) / <alpha-value>)', surface: 'rgb(var(--color-bg-surface) / <alpha-value>)', raised: 'rgb(var(--color-bg-raised) / <alpha-value>)', overlay: 'rgb(var(--color-bg-overlay) / <alpha-value>)' },
+        border: { DEFAULT: 'rgb(var(--color-border) / <alpha-value>)', subtle: 'rgb(var(--color-border-subtle) / <alpha-value>)' },
+        ink: { DEFAULT: 'rgb(var(--color-ink) / <alpha-value>)', muted: 'rgb(var(--color-ink-muted) / <alpha-value>)', faint: 'rgb(var(--color-ink-faint) / <alpha-value>)' },
+        brand: { DEFAULT: 'rgb(var(--color-brand) / <alpha-value>)', hover: 'rgb(var(--color-brand-hover) / <alpha-value>)', soft: 'rgb(var(--color-brand-soft) / <alpha-value>)' },
+        violet: { DEFAULT: 'rgb(var(--color-violet) / <alpha-value>)', soft: 'rgb(var(--color-violet-soft) / <alpha-value>)' },
+        amber: { DEFAULT: 'rgb(var(--color-amber) / <alpha-value>)', soft: 'rgb(var(--color-amber-soft) / <alpha-value>)' },
+        easy: 'rgb(var(--color-brand) / <alpha-value>)', medium: 'rgb(var(--color-amber) / <alpha-value>)', hard: '#F0654C',
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
