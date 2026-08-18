@@ -25,6 +25,14 @@ export async function suspendUser(id, reason) {
   return mockDelay({ id, status: 'suspended', reason }, 400)
 }
 
+export async function restoreUser(id) {
+  return mockDelay({ id, status: 'active' }, 400)
+}
+
+export async function updateUser(id, changes) {
+  return mockDelay({ id, ...changes }, 400)
+}
+
 export async function exportUsersCSV() {
   return mockDelay({ url: '#' }, 300)
 }

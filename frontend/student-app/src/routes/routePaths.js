@@ -1,7 +1,6 @@
 export const ROUTES = {
   landing: '/',
-  login: '/login',
-  signup: '/signup',
+  auth: '/continue',
   dashboard: '/dashboard',
   problems: '/problems',
   problemDetail: (slug = ':slug') => `/problems/${slug}`,

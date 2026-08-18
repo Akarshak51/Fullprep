@@ -6,14 +6,14 @@ export default function AIConfigForm({ ai, onSave }) {
   return (
     <Card>
       <p className="font-display font-medium text-ink">AI configuration</p>
-      <div className="mt-4 flex flex-wrap gap-4">
-        <div>
+      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="min-w-0">
           <label className="mb-1.5 block text-xs font-medium text-ink-muted">Hint stages</label>
-          <Input type="number" value={ai.hintStagesEnabled} onChange={(e) => onSave({ ai: { ...ai, hintStagesEnabled: Number(e.target.value) } })} className="w-24" />
+          <Input type="number" value={ai.hintStagesEnabled} onChange={(e) => onSave({ ai: { ...ai, hintStagesEnabled: Number(e.target.value) } })} />
         </div>
-        <div>
+        <div className="min-w-0">
           <label className="mb-1.5 block text-xs font-medium text-ink-muted">Daily hint limit / user</label>
-          <Input type="number" value={ai.dailyHintLimit} onChange={(e) => onSave({ ai: { ...ai, dailyHintLimit: Number(e.target.value) } })} className="w-24" />
+          <Input type="number" value={ai.dailyHintLimit} onChange={(e) => onSave({ ai: { ...ai, dailyHintLimit: Number(e.target.value) } })} />
         </div>
       </div>
       <p className="mt-3 text-xs text-ink-faint">Model: {ai.model}</p>

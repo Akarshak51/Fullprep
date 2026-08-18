@@ -28,7 +28,7 @@ export default function PricingSection() {
                   </li>
                 ))}
               </ul>
-              <Button as={Link} to={ROUTES.signup} variant={p.variant} className="mt-6 w-full">{p.cta}</Button>
+              <Button as={Link} to={ROUTES.auth} variant={p.variant} className="mt-6 w-full">{p.cta}</Button>
             </Card>
           ))}
         </div>

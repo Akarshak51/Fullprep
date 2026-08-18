@@ -36,8 +36,8 @@ export default function HeroSection() {
             and an AI that explains your mistakes — not just your bugs.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button as={Link} to={ROUTES.signup} size="lg" icon={ArrowRight} className="flex-row-reverse">
-              Start practicing free
+            <Button as={Link} to={ROUTES.auth} size="lg" icon={ArrowRight} className="flex-row-reverse">
+              Continue with Google
             </Button>
             <Button as={Link} to={ROUTES.problems} variant="secondary" size="lg">
               Browse problems

@@ -5,18 +5,30 @@ import UserSearchBar from './UserSearchBar.jsx'
 import ExportUsersButton from './ExportUsersButton.jsx'
 import UserTable from './UserTable.jsx'
 import SuspendUserModal from './SuspendUserModal.jsx'
+import EditUserModal from './EditUserModal.jsx'
 import Pagination from '../../../shared/components/ui/Pagination.jsx'
 import { useToast } from '../../../shared/hooks/useToast.js'
 
 export default function UserListPage() {
-  const { users, loading, search, setSearch, suspend } = useUsers()
+  const { users, loading, search, setSearch, suspend, restore, update } = useUsers()
   const { page, totalPages, pageItems, goTo } = usePagination(users, 15)
   const [suspendTarget, setSuspendTarget] = useState(null)
+  const [editTarget, setEditTarget] = useState(null)
   const { toast } = useToast()
 
   const handleConfirmSuspend = async (id, reason) => {
     await suspend(id, reason)
     toast('User suspended', 'success')
+  }
+
+  const handleRestore = async (user) => {
+    await restore(user.id)
+    toast(`${user.name}'s access restored`, 'success')
+  }
+
+  const handleUpdate = async (id, changes) => {
+    await update(id, changes)
+    toast('User details updated', 'success')
   }
 
   return (
@@ -29,9 +41,10 @@ export default function UserListPage() {
         <ExportUsersButton />
       </div>
       <UserSearchBar value={search} onChange={setSearch} />
-      <UserTable users={pageItems} loading={loading} onSuspend={setSuspendTarget} />
+      <UserTable users={pageItems} loading={loading} onSuspend={setSuspendTarget} onRestore={handleRestore} onEdit={setEditTarget} />
       <Pagination page={page} totalPages={totalPages} onChange={goTo} />
       <SuspendUserModal user={suspendTarget} onClose={() => setSuspendTarget(null)} onConfirm={handleConfirmSuspend} />
+      <EditUserModal user={editTarget} onClose={() => setEditTarget(null)} onConfirm={handleUpdate} />
     </div>
   )
 }

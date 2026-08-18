@@ -23,7 +23,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="dashboard-enter flex flex-col gap-6">
       <div>
         <h1 className="heading-display text-2xl text-ink">Welcome back, {user?.name?.split(' ')[0] || 'coder'} 👋</h1>
         <p className="mt-1 text-sm text-ink-muted">Here's where your prep stands today.</p>

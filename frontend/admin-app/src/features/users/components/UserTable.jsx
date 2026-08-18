@@ -5,7 +5,7 @@ import Skeleton from '../../../shared/components/ui/Skeleton.jsx'
 
 const ROLE_VARIANT = { student: 'default', moderator: 'violet', admin: 'brand' }
 
-export default function UserTable({ users, loading, onSuspend }) {
+export default function UserTable({ users, loading, onSuspend, onRestore, onEdit }) {
   if (loading) return <div className="flex flex-col gap-2">{Array.from({ length: 8 }).map((_, i) => <Skeleton key={i} className="h-11 w-full" />)}</div>
 
   return (
@@ -21,7 +21,7 @@ export default function UserTable({ users, loading, onSuspend }) {
             <TD><Badge variant={ROLE_VARIANT[u.role]}>{u.role}</Badge></TD>
             <TD className="text-ink-muted">{u.problemsSolved}</TD>
             <TD><Badge variant={u.status === 'active' ? 'brand' : 'hard'}>{u.status}</Badge></TD>
-            <TD><UserActionsMenu user={u} onSuspend={onSuspend} /></TD>
+            <TD><UserActionsMenu user={u} onSuspend={onSuspend} onRestore={onRestore} onEdit={onEdit} /></TD>
           </TRow>
         ))}
       </tbody>

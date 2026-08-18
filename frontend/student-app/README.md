@@ -2,6 +2,14 @@
 
 The learner-facing frontend for Full Prep: practice problems, learning paths, contests, leaderboard, AI study partner, and profile/gamification.
 
+## Google authentication
+
+Authentication is Google-only. Copy `.env.example` to `.env` and set
+`VITE_GOOGLE_CLIENT_ID` to your Google OAuth web client ID. In production,
+set `VITE_USE_MOCKS=false`; the app posts the Google ID token as
+`{ credential }` to `POST /auth/google`, where the backend must verify it
+before returning the authenticated user.
+
 ## Stack
 - React 18 + Vite
 - React Router v6

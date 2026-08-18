@@ -7,7 +7,7 @@ export default function AdminLayout() {
     <div className="min-h-screen bg-bg">
       <AdminTopbar />
       <div className="container-page">
-        <main className="min-w-0 py-6">
+        <main className="admin-page-enter min-w-0 py-6">
           <Outlet />
         </main>
       </div>

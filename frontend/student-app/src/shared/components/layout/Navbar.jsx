@@ -25,11 +25,11 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 border-b border-border bg-bg/85 backdrop-blur-md">
       <div className="container-page flex h-14 items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link to={isAuthenticated ? ROUTES.dashboard : ROUTES.landing} className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-soft text-brand">
+          <Link to={ROUTES.landing} className="group flex items-center gap-2">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-soft text-brand transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
               <Code2 size={16} />
             </div>
-            <span className="font-display text-[15px] font-semibold text-ink">Full Prep</span>
+            <span className="font-display text-[15px] font-semibold text-ink transition-colors group-hover:text-brand">Full Prep</span>
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
@@ -70,8 +70,7 @@ export default function Navbar() {
             </>
           ) : (
             <div className="hidden items-center gap-2 sm:flex">
-              <Button as={Link} to={ROUTES.login} variant="ghost" size="sm">Log in</Button>
-              <Button as={Link} to={ROUTES.signup} size="sm">Sign up free</Button>
+              <Button as={Link} to={ROUTES.auth} size="sm">Continue with Google</Button>
             </div>
           )}
 
@@ -91,8 +90,7 @@ export default function Navbar() {
             ))}
             {!isAuthenticated && (
               <div className="mt-2 flex gap-2">
-                <Button as={Link} to={ROUTES.login} variant="secondary" size="sm" className="flex-1">Log in</Button>
-                <Button as={Link} to={ROUTES.signup} size="sm" className="flex-1">Sign up</Button>
+                <Button as={Link} to={ROUTES.auth} size="sm" className="w-full">Continue with Google</Button>
               </div>
             )}
           </div>

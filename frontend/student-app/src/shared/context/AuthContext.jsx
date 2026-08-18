@@ -1,4 +1,7 @@
 import { createContext, useEffect, useState } from 'react'
+import { ENV } from '../../config/env.js'
+import { ENDPOINTS } from '../../config/apiEndpoints.js'
+import { apiClient, mockDelay } from '../services/apiClient.js'
 
 export const AuthContext = createContext(null)
 
@@ -26,29 +29,25 @@ export function AuthProvider({ children }) {
     else localStorage.removeItem('fp_user')
   }, [user])
 
-  const login = async (_email, _password) => {
-    await new Promise((r) => setTimeout(r, 500))
-    setUser(MOCK_USER)
-    return MOCK_USER
-  }
+  const loginWithGoogle = async (credential) => {
+    if (ENV.USE_MOCKS) {
+      await mockDelay(null)
+      setUser(MOCK_USER)
+      return MOCK_USER
+    }
 
-  const loginWithGoogle = async () => {
-    await new Promise((r) => setTimeout(r, 500))
-    setUser(MOCK_USER)
-    return MOCK_USER
-  }
-
-  const signup = async (name, email, _password) => {
-    await new Promise((r) => setTimeout(r, 500))
-    const newUser = { ...MOCK_USER, name, email, username: name.toLowerCase().replace(/\s+/g, ''), xp: 0, level: 1, streak: 0 }
-    setUser(newUser)
-    return newUser
+    if (!credential) throw new Error('Google did not return an identity credential.')
+    const response = await apiClient.post(ENDPOINTS.auth.google, { credential })
+    const authenticatedUser = response.user || response.data?.user || response
+    if (!authenticatedUser?.id) throw new Error('The server did not return an authenticated user.')
+    setUser(authenticatedUser)
+    return authenticatedUser
   }
 
   const logout = () => setUser(null)
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, loginWithGoogle, signup, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, loginWithGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   )

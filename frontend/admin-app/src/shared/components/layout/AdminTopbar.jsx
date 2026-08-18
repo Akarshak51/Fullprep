@@ -3,11 +3,12 @@ import { Search, Bell, Menu, ShieldCheck } from 'lucide-react'
 import { initials } from '../../utils/formatters.js'
 import clsx from 'clsx'
 import { useState } from 'react'
+import { ROUTES } from '../../../routes/routePaths.js'
 
 const ADMIN_USER = { name: 'Priya Sharma', role: 'Super Admin' }
 
 const NAV_LINKS = [
-  { to: '/', label: 'Overview', end: true },
+  { to: ROUTES.overview, label: 'Overview', end: true },
   { to: '/users', label: 'Users' },
   { to: '/problems', label: 'Problems' },
   { to: '/learning-paths', label: 'Learning Paths' },
@@ -24,9 +25,9 @@ export default function AdminTopbar() {
     <header className="sticky top-0 z-30 border-b border-border bg-bg/85 backdrop-blur-md">
       <div className="flex h-14 items-center justify-between gap-4 px-4 lg:px-6">
         <div className="flex min-w-0 items-center gap-6">
-          <Link to="/" className="flex shrink-0 items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-soft text-brand"><ShieldCheck size={15} /></div>
-            <span className="font-display text-sm font-semibold text-ink">Full Prep Admin</span>
+          <Link to={ROUTES.home} className="group flex shrink-0 items-center gap-2">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-soft text-brand transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"><ShieldCheck size={15} /></div>
+            <span className="font-display text-sm font-semibold text-ink transition-colors group-hover:text-brand">Full Prep Admin</span>
           </Link>
           <nav className="hidden items-center gap-1 xl:flex">
             {NAV_LINKS.map((link) => (

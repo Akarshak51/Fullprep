@@ -1,11 +1,10 @@
-import { Routes, Route } from 'react-router-dom'
+import { Navigate, Routes, Route } from 'react-router-dom'
 import { ROUTES } from './routePaths.js'
 import ProtectedRoute from './ProtectedRoute.jsx'
 import MainLayout from '../shared/components/layout/MainLayout.jsx'
 import FocusLayout from '../shared/components/layout/FocusLayout.jsx'
-import NotFoundPage from '../shared/components/feedback/NotFoundPage.jsx'
 
-import { LandingPage, LoginPage, SignupPage } from '../features/landing/index.js'
+import { LandingPage, GoogleAuthPage } from '../features/landing/index.js'
 import { DashboardPage } from '../features/dashboard/index.js'
 import { ProblemListPage, ProblemDetailPage } from '../features/practice/index.js'
 import { LearningPathListPage, LearningPathDetailPage } from '../features/learning-paths/index.js'
@@ -19,10 +18,9 @@ import { SettingsPage } from '../features/settings/index.js'
 export default function AppRouter() {
   return (
     <Routes>
-      {/* Public */}
+      {/* Public home, with Google identity as the only sign-in path. */}
       <Route path={ROUTES.landing} element={<LandingPage />} />
-      <Route path={ROUTES.login} element={<LoginPage />} />
-      <Route path={ROUTES.signup} element={<SignupPage />} />
+      <Route path={ROUTES.auth} element={<GoogleAuthPage />} />
 
       {/* Authenticated, with sidebar */}
       <Route element={<ProtectedRoute />}>
@@ -47,7 +45,7 @@ export default function AppRouter() {
         </Route>
       </Route>
 
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="*" element={<Navigate to={ROUTES.landing} replace />} />
     </Routes>
   )
 }

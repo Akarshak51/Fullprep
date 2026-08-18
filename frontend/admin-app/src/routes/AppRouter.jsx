@@ -4,6 +4,7 @@ import ProtectedRoute from './ProtectedRoute.jsx'
 import AdminLayout from '../shared/components/layout/AdminLayout.jsx'
 
 import AdminLoginPage from '../features/auth/components/AdminLoginPage.jsx'
+import AdminHomePage from '../features/auth/components/AdminHomePage.jsx'
 import { AdminOverviewPage } from '../features/overview/index.js'
 import { UserListPage } from '../features/users/index.js'
 import { ProblemManagementPage, ProblemForm } from '../features/problems/index.js'
@@ -16,6 +17,7 @@ import { ReportsPage } from '../features/reports/index.js'
 export default function AppRouter() {
   return (
     <Routes>
+      <Route path={ROUTES.home} element={<AdminHomePage />} />
       <Route path={ROUTES.login} element={<AdminLoginPage />} />
 
       <Route element={<ProtectedRoute />}>
@@ -35,7 +37,7 @@ export default function AppRouter() {
         </Route>
       </Route>
 
-      <Route path="*" element={<AdminOverviewPage />} />
+      <Route path="*" element={<AdminHomePage />} />
     </Routes>
   )
 }

@@ -25,6 +25,11 @@ body {
 .page-enter > *:nth-child(3) { animation-delay: 105ms; }
 .page-enter > *:nth-child(4) { animation-delay: 155ms; }
 
+.dashboard-enter > * { animation: dashboard-enter 500ms var(--ease-out) both; }
+.dashboard-enter > *:nth-child(2) { animation-delay: 60ms; }
+.dashboard-enter > *:nth-child(3) { animation-delay: 120ms; }
+.dashboard-enter > *:nth-child(4) { animation-delay: 180ms; }
+
 html.dark .shadow-card { box-shadow: 0 1px 0 rgb(255 255 255 / 0.025) inset, 0 18px 38px -24px rgb(0 0 0 / 0.88); }
 
 .settings-section {
@@ -45,6 +50,35 @@ html.dark .shadow-card { box-shadow: 0 1px 0 rgb(255 255 255 / 0.025) inset, 0 1
   animation: preview-float 3s ease-in-out infinite;
 }
 
+.company-marquee {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+}
+
+.company-marquee__track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 2.75rem;
+  animation: company-marquee 30s linear infinite;
+}
+
+.company-marquee:hover .company-marquee__track { animation-play-state: paused; }
+
+.company-logo {
+  flex: none;
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  filter: saturate(0.86);
+  opacity: 0.8;
+  transition: opacity 180ms ease, transform 180ms ease, filter 180ms ease;
+}
+
+.company-logo:hover { filter: saturate(1.15); opacity: 1; transform: translateY(-2px); }
+
 @keyframes settings-enter {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -53,6 +87,10 @@ html.dark .shadow-card { box-shadow: 0 1px 0 rgb(255 255 255 / 0.025) inset, 0 1
 @keyframes preview-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
+}
+
+@keyframes company-marquee {
+  to { transform: translateX(calc(-50% - 1.375rem)); }
 }
 
 ::selection { background: rgb(var(--color-brand) / 0.35); color: rgb(var(--color-ink)); }
@@ -75,6 +113,11 @@ html.dark .shadow-card { box-shadow: 0 1px 0 rgb(255 255 255 / 0.025) inset, 0 1
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes dashboard-enter {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 @layer components {
   .container-page {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
@@ -93,4 +136,6 @@ html.dark .shadow-card { box-shadow: 0 1px 0 rgb(255 255 255 / 0.025) inset, 0 1
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  .company-marquee__track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
 }
