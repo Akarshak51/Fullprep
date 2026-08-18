@@ -1,66 +1,44 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
-  {
-    googleId: { 
-      type: String, 
-      required: true, 
-      unique: true 
-    },
-    name: { 
-      type: String, 
-      required: true 
-    },
-    email: { 
-      type: String, 
-      required: true, 
-      unique: true 
-    },
-    avatar: { 
-      type: String 
-    },
-    role: { 
-      type: String, 
-      enum: ['student', 'admin'], 
-      default: 'student' 
-    },
-    xp: { 
-      type: Number, 
-      default: 0 
-    },
-    level: { 
-      type: Number, 
-      default: 1 
-    },
-    currentStreak: { 
-      type: Number, 
-      default: 0 
-    },
-    longestStreak: { 
-      type: Number, 
-      default: 0 
-    },
-    bookmarks: [
-      { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Problem' 
-      }
-    ],
-    badges: [
-      {
-        badgeId: { type: String },
-        earnedAt: { type: Date, default: Date.now },
-      }
-    ],
-    settings: {
-      theme: { type: String, enum: ['light', 'dark'], default: 'light' },
-      notificationsEnabled: { type: Boolean, default: true },
-    }
-  },
-  { 
-    timestamps: true 
-  }
-);
+const privacy = new mongoose.Schema({
+  publicProfile: { type: Boolean, default: true },
+  showOnLeaderboard: { type: Boolean, default: true },
+  showSolvedProblems: { type: Boolean, default: true },
+}, { _id: false });
 
-const User = mongoose.model('User', userSchema);
-export default User;
+const notifications = new mongoose.Schema({
+  contestReminders: { type: Boolean, default: true },
+  achievementAlerts: { type: Boolean, default: true },
+  productUpdates: { type: Boolean, default: false },
+  weeklyDigest: { type: Boolean, default: true },
+}, { _id: false });
+
+const settings = new mongoose.Schema({
+  theme: { type: String, enum: ["light", "dark"], default: "dark" },
+  privacy: { type: privacy, default: () => ({}) },
+  notifications: { type: notifications, default: () => ({}) },
+}, { _id: false });
+
+const schema = new mongoose.Schema({
+  googleId: { type: String, unique: true, sparse: true },
+  name: { type: String, required: true, trim: true },
+  username: { type: String, required: true, unique: true, index: true, lowercase: true },
+  email: { type: String, required: true, unique: true, lowercase: true, index: true },
+  passwordHash: { type: String, select: false },
+  avatar: String,
+  bio: { type: String, default: "" },
+  role: { type: String, enum: ["student", "moderator", "admin"], default: "student" },
+  status: { type: String, enum: ["active", "suspended"], default: "active" },
+  xp: { type: Number, default: 0, index: true },
+  level: { type: Number, default: 1 },
+  currentStreak: { type: Number, default: 0 },
+  longestStreak: { type: Number, default: 0 },
+  lastActivityDate: Date,
+  rating: { type: Number, default: 1200 },
+  bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Problem" }],
+  badges: [{ badgeId: String, earnedAt: { type: Date, default: Date.now } }],
+  achievements: [{ key: String, title: String, earnedAt: { type: Date, default: Date.now } }],
+  settings: { type: settings, default: () => ({}) },
+}, { timestamps: true });
+
+export default mongoose.model("User", schema);
