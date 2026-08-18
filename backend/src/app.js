@@ -1,31 +1,54 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import authRoutes from './features/auth/auth.routes.js';
-import problemRoutes from './features/problems/problem.routes.js';
-import aiRoutes from './features/ai/ai.routes.js';
-import adminProblemRoutes from './features/admin/problems/adminProblem.routes.js';
-import submissionRoutes from './features/submissions/submission.routes.js'; 
-
-dotenv.config();
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import { corsOptions } from "./config/corsOptions.js";
+import apiRouter from "./routes/index.js";
+import { requestLogger } from "./shared/middlewares/requestLogger.js";
+import { notFoundHandler } from "./shared/middlewares/notFoundHandler.js";
+import { errorHandler } from "./shared/middlewares/errorHandler.js";
 
 const app = express();
 
-app.use(cors({
-  origin: [process.env.STUDENT_APP_URL, process.env.ADMIN_APP_URL],
-  credentials: true
-}));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.disable("x-powered-by");
 
-app.use('/api/auth', authRoutes);
-app.use('/api/problems', problemRoutes);
-app.use('/api/ai', aiRoutes);
-app.use('/api/admin/problems', adminProblemRoutes);
-app.use('/api/submissions', submissionRoutes); 
+app.use(cors(corsOptions));
 
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'success', message: 'Full Prep API is running smoothly!' });
+app.use(
+  express.json({
+    limit: "2mb",
+  }),
+);
+
+app.use(
+  express.urlencoded({
+    extended: true,
+  }),
+);
+
+app.use(cookieParser());
+
+app.use(requestLogger);
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "FullPrep API is healthy",
+    data: {
+      status: "ok",
+      uptime: process.uptime(),
+      timestamp: new Date().toISOString(),
+    },
+  });
 });
+
+app.use("/api/v1", apiRouter);
+
+// Keep /api compatibility for the existing frontend while
+// we migrate frontend service calls to /api/v1.
+app.use("/api", apiRouter);
+
+app.use(notFoundHandler);
+
+app.use(errorHandler);
 
 export default app;

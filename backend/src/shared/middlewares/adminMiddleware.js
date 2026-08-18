@@ -1,7 +1,3 @@
-export const admin = (req, res, next) => {
-  if (req.user && req.user.role === 'admin') {
-    next();
-  } else {
-    res.status(403).json({ success: false, message: 'Not authorized as an admin' });
-  }
-};
+import { authorizeRoles } from "./authMiddleware.js";
+export const admin = authorizeRoles("admin");
+export const staff = authorizeRoles("admin", "moderator");
