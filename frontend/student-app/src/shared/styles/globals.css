@@ -25,6 +25,22 @@ body {
 .page-enter > *:nth-child(3) { animation-delay: 105ms; }
 .page-enter > *:nth-child(4) { animation-delay: 155ms; }
 
+.home-shell { position: relative; overflow: hidden; isolation: isolate; }
+.home-background { pointer-events: none; position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.home-background::before, .home-background::after { content: ''; position: absolute; width: min(72vw, 820px); aspect-ratio: 1; border-radius: 999px; filter: blur(88px); opacity: 0.2; animation: home-orbit 16s ease-in-out infinite alternate; }
+.home-background::before { top: 4rem; left: -22rem; background: rgb(var(--color-brand)); }
+.home-background::after { top: 32rem; right: -24rem; background: rgb(var(--color-violet)); animation-delay: -7s; animation-duration: 20s; }
+.hero-code-window { position: relative; }
+.hero-code-window::after { content: ''; position: absolute; inset: 0; border: 1px solid rgb(var(--color-brand) / 0.16); border-radius: inherit; pointer-events: none; animation: code-glow 3s ease-in-out infinite; }
+.feature-card { transition: transform 220ms var(--ease-out), border-color 220ms ease, box-shadow 220ms ease; }
+.feature-card:hover { transform: translateY(-4px); border-color: rgb(var(--color-brand) / 0.5); box-shadow: 0 16px 30px -22px rgb(var(--color-brand) / 0.7); }
+.roadmap-card { min-height: 238px; transition: transform 240ms var(--ease-out), box-shadow 240ms ease, border-color 240ms ease; }
+.roadmap-card::after { content: ''; position: absolute; inset: auto -20% -45% auto; height: 9rem; width: 9rem; border-radius: 999px; background: currentColor; opacity: 0.07; filter: blur(18px); transition: transform 300ms var(--ease-out); }
+.roadmap-card:hover { transform: translateY(-6px); box-shadow: 0 22px 35px -28px currentColor; }
+.roadmap-card:hover::after { transform: scale(1.35); }
+.dashboard-hero { position: relative; background: linear-gradient(120deg, rgb(var(--color-brand) / 0.11), rgb(var(--color-violet) / 0.08), rgb(var(--color-bg-surface))); }
+.dashboard-hero::after { content: ''; position: absolute; right: -4rem; top: -6rem; width: 16rem; height: 16rem; border-radius: 999px; background: rgb(var(--color-violet) / 0.2); filter: blur(28px); animation: dashboard-orb 7s ease-in-out infinite alternate; }
+
 .dashboard-enter > * { animation: dashboard-enter 500ms var(--ease-out) both; }
 .dashboard-enter > *:nth-child(2) { animation-delay: 60ms; }
 .dashboard-enter > *:nth-child(3) { animation-delay: 120ms; }
@@ -116,6 +132,20 @@ html.dark .shadow-card { box-shadow: 0 1px 0 rgb(255 255 255 / 0.025) inset, 0 1
 @keyframes dashboard-enter {
   from { opacity: 0; transform: translateY(14px) scale(0.985); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes home-orbit {
+  from { transform: translate3d(0, 0, 0) scale(0.9); }
+  to { transform: translate3d(12vw, 7rem, 0) scale(1.15); }
+}
+
+@keyframes code-glow {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+@keyframes dashboard-orb {
+  to { transform: translate(-2rem, 3rem) scale(1.2); }
 }
 
 @layer components {

@@ -9,6 +9,9 @@ import ContinueLearningCard from './ContinueLearningCard.jsx'
 import RecommendedProblemsCard from './RecommendedProblemsCard.jsx'
 import UpcomingContestsCard from './UpcomingContestsCard.jsx'
 import Skeleton from '../../../shared/components/ui/Skeleton.jsx'
+import { ArrowRight, Sparkles } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { ROUTES } from '../../../routes/routePaths.js'
 
 export default function DashboardPage() {
   const { user } = useAuth()
@@ -24,9 +27,15 @@ export default function DashboardPage() {
 
   return (
     <div className="dashboard-enter flex flex-col gap-6">
-      <div>
-        <h1 className="heading-display text-2xl text-ink">Welcome back, {user?.name?.split(' ')[0] || 'coder'} 👋</h1>
-        <p className="mt-1 text-sm text-ink-muted">Here's where your prep stands today.</p>
+      <div className="dashboard-hero overflow-hidden rounded-2xl border border-brand/25 px-5 py-6 sm:px-7">
+        <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="inline-flex items-center gap-1.5 rounded-full border border-brand/25 bg-bg-surface/60 px-2.5 py-1 text-xs font-semibold text-brand"><Sparkles size={13} /> Momentum mode</p>
+            <h1 className="heading-display mt-3 text-2xl text-ink sm:text-3xl">Good to see you, {user?.name?.split(' ')[0] || 'coder'}.</h1>
+            <p className="mt-1.5 text-sm text-ink-muted">One focused session today keeps your interview edge moving forward.</p>
+          </div>
+          <Link to={ROUTES.problems} className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand transition-transform hover:translate-x-1">Choose today’s challenge <ArrowRight size={16} /></Link>
+        </div>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-3">

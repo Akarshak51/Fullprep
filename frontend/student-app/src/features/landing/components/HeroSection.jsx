@@ -29,11 +29,11 @@ export default function HeroSection() {
             1,200+ problems · AI-guided feedback
           </div>
           <h1 className="heading-display mt-5 text-4xl leading-[1.08] text-ink sm:text-5xl lg:text-[3.4rem]">
-            Practice like it's the real interview.
+            Turn every practice session into interview confidence.
           </h1>
           <p className="mt-5 max-w-lg text-base text-ink-muted sm:text-lg">
-            Full Prep pairs a LeetCode-grade problem set with structured learning paths, live contests,
-            and an AI that explains your mistakes — not just your bugs.
+            A focused system for solving, learning, and improving — with real execution feedback,
+            guided paths, and an AI coach that helps you think clearly under pressure.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button as={Link} to={ROUTES.auth} size="lg" icon={ArrowRight} className="flex-row-reverse">
@@ -51,7 +51,7 @@ export default function HeroSection() {
         </div>
 
         <div className="animate-fadeUp [animation-delay:120ms]">
-          <div className="overflow-hidden rounded-2xl border border-border bg-bg-surface shadow-card">
+          <div className="hero-code-window overflow-hidden rounded-2xl border border-brand/25 bg-bg-surface shadow-card">
             <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
               <span className="h-2.5 w-2.5 rounded-full bg-hard/70" />
               <span className="h-2.5 w-2.5 rounded-full bg-medium/70" />

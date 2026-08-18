@@ -12,18 +12,21 @@ import LandingFooter from './components/LandingFooter.jsx'
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-bg">
-      <Navbar />
-      <HeroSection />
-      <TrustedBySection />
-      <FeaturesSection />
-      <CodingCategoriesSection />
-      <AIFeaturesSection />
-      <RoadmapSection />
-      <TestimonialsSection />
-      <PricingSection />
-      <FAQSection />
-      <LandingFooter />
+    <div className="home-shell min-h-screen bg-bg">
+      <div className="home-background" aria-hidden="true" />
+      <div className="relative z-10">
+        <Navbar />
+        <HeroSection />
+        <TrustedBySection />
+        <FeaturesSection />
+        <CodingCategoriesSection />
+        <AIFeaturesSection />
+        <RoadmapSection />
+        <TestimonialsSection />
+        <PricingSection />
+        <FAQSection />
+        <LandingFooter />
+      </div>
     </div>
   )
 }

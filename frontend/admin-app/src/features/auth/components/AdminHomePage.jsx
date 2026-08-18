@@ -5,15 +5,15 @@ import { ROUTES } from '../../../routes/routePaths.js'
 
 export default function AdminHomePage() {
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-bg px-4 py-10">
-      <div className="pointer-events-none absolute -left-28 top-8 h-80 w-80 rounded-full bg-brand/15 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-96 w-96 rounded-full bg-violet/15 blur-3xl" />
-      <section className="relative w-full max-w-4xl overflow-hidden rounded-3xl border border-border bg-bg-surface shadow-card animate-fadeUp">
+    <main className="admin-home relative flex min-h-screen items-center justify-center overflow-hidden bg-bg px-4 py-10">
+      <div className="admin-home-orb admin-home-orb--brand" />
+      <div className="admin-home-orb admin-home-orb--violet" />
+      <section className="relative w-full max-w-4xl overflow-hidden rounded-3xl border border-brand/30 bg-bg-surface shadow-card animate-fadeUp">
         <div className="grid md:grid-cols-[1.1fr_.9fr]">
           <div className="p-8 sm:p-12">
             <Link to={ROUTES.home} className="inline-flex items-center gap-2 text-sm font-semibold text-brand"><ShieldCheck size={19} /> Full Prep Admin</Link>
             <p className="mt-14 text-xs font-semibold uppercase tracking-[0.2em] text-brand">Platform operations</p>
-            <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-ink">Control the learning experience with confidence.</h1>
+            <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-ink">Make every learning decision count.</h1>
             <p className="mt-5 max-w-lg text-sm leading-6 text-ink-muted">Manage learners, problem content, contests, reports, and platform configuration from one protected workspace.</p>
             <Button as={Link} to={ROUTES.login} size="lg" icon={ArrowRight} className="mt-8 flex-row-reverse">Admin sign in</Button>
           </div>

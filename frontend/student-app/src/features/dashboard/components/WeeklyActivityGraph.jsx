@@ -6,7 +6,7 @@ export default function WeeklyActivityGraph({ data = [] }) {
   const max = Math.max(...data, 1)
   return (
     <Card>
-      <p className="text-sm font-medium text-ink-muted">This week's activity</p>
+      <div className="flex items-center justify-between"><p className="text-sm font-medium text-ink-muted">This week’s activity</p><span className="rounded-full bg-brand-soft px-2 py-0.5 text-xs font-semibold text-brand">{data.reduce((sum, value) => sum + value, 0)} solved</span></div>
       <div className="mt-5 flex items-end justify-between gap-2 h-28">
         {data.map((v, i) => (
           <div key={i} className="flex flex-1 flex-col items-center gap-2">
