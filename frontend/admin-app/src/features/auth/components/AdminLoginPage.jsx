@@ -15,7 +15,7 @@ export default function AdminLoginPage() {
   const submit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    await login()
+    await login(form.email, form.password)
     setLoading(false)
     navigate(ROUTES.overview)
   }

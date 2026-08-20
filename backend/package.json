@@ -6,7 +6,10 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "seed": "node scripts/seedDatabase.js",
+    "create-admin": "node scripts/createAdmin.js",
+    "test": "node --test"
   },
   "keywords": [],
   "author": "",

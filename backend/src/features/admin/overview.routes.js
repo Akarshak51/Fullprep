@@ -1,0 +1,1 @@
+import express from "express";import {protect,authorizeRoles} from "../../shared/middlewares/authMiddleware.js";import {getOverview} from "./overview.controller.js";const r=express.Router();r.use(protect,authorizeRoles("admin","super_admin","moderator"));r.get("/",getOverview);export default r;

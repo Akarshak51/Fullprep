@@ -1,0 +1,1 @@
+import {overview} from "./overview.service.js";export async function getOverview(req,res,next){try{res.json({success:true,data:await overview()})}catch(e){next(e)}}

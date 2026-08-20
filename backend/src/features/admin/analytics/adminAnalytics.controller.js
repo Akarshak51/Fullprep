@@ -1,0 +1,1 @@
+import {analytics} from "./adminAnalytics.service.js";export async function getAnalytics(req,res,next){try{res.json({success:true,data:await analytics()})}catch(e){next(e)}}

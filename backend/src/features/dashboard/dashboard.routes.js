@@ -1,0 +1,1 @@
+import express from "express";import {protect} from "../../shared/middlewares/authMiddleware.js";import {getDashboard} from "./dashboard.controller.js";const r=express.Router();r.get("/",protect,getDashboard);export default r;

@@ -1,63 +1,83 @@
-import axios from 'axios';
-import dotenv from 'dotenv';
+import axios from "axios";
+import { env } from "../../config/env.js";
 
-dotenv.config();
+export const LANGUAGE_MAP = Object.freeze({
+  cpp: 54,
+  java: 62,
+  python: 71,
+  javascript: 93,
+  typescript: 74,
+});
 
-const JUDGE0_URL = process.env.JUDGE0_URL || 'https://judge0-ce.p.rapidapi.com';
-const JUDGE0_API_KEY = process.env.JUDGE0_API_KEY;
+const TERMINAL_STATUS_IDS = new Set([3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
 
-const languageMap = {
-  'C++': 54,
-  'Java': 62,
-  'Python': 71,
-  'JavaScript': 93,
-  'TypeScript': 74
-};
+function judgeHeaders() {
+  const headers = { "Content-Type": "application/json" };
+  if (env.judge0ApiKey) headers["X-RapidAPI-Key"] = env.judge0ApiKey;
+  if (env.judge0ApiHost) headers["X-RapidAPI-Host"] = env.judge0ApiHost;
+  return headers;
+}
 
-export const executeCode = async (code, language, testCases) => {
-  const language_id = languageMap[language];
-  if (!language_id) throw new Error('Unsupported language');
+function normalizeStatus(status) {
+  const id = status?.id;
+  const description = status?.description || "Unknown";
+  return { id, description };
+}
 
-  const submissions = testCases.map((tc) => ({
-    language_id,
+export function languageId(language) {
+  return LANGUAGE_MAP[language];
+}
+
+export async function executeCode(code, language, testCases) {
+  const languageIdValue = languageId(language);
+  if (!languageIdValue) throw new Error(`Unsupported language: ${language}`);
+  if (!Array.isArray(testCases) || testCases.length === 0) return [];
+  if (!env.judge0Url) throw new Error("Judge0 is not configured");
+
+  const submissions = testCases.map((testCase) => ({
+    language_id: languageIdValue,
     source_code: code,
-    stdin: tc.input,
-    expected_output: tc.output
+    stdin: testCase.input ?? "",
+    expected_output: testCase.output ?? "",
   }));
 
-  try {
-    const response = await axios.post(
-      `${JUDGE0_URL}/submissions/batch?base64_encoded=false`,
-      { submissions },
+  const createResponse = await axios.post(
+    `${env.judge0Url}/submissions/batch?base64_encoded=false`,
+    { submissions },
+    { headers: judgeHeaders(), timeout: env.judge0TimeoutMs },
+  );
+
+  const tokens = (createResponse.data?.submissions || createResponse.data || [])
+    .map((item) => item.token)
+    .filter(Boolean);
+  if (tokens.length !== submissions.length) throw new Error("Judge0 did not return all submission tokens");
+
+  const startedAt = Date.now();
+  let results = [];
+  for (let attempt = 0; attempt < env.judge0MaxPolls; attempt += 1) {
+    await new Promise((resolve) => setTimeout(resolve, env.judge0PollIntervalMs));
+    const response = await axios.get(
+      `${env.judge0Url}/submissions/batch`,
       {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-RapidAPI-Key': JUDGE0_API_KEY,
+        params: {
+          tokens: tokens.join(","),
+          base64_encoded: false,
+          fields: "status,stdout,stderr,compile_output,time,memory,message",
         },
-      }
+        headers: judgeHeaders(),
+        timeout: env.judge0TimeoutMs,
+      },
     );
-
-    const tokens = response.data.map((res) => res.token).join(',');
-
-    let results = [];
-    let pending = true;
-    
-    while (pending) {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      const resultResponse = await axios.get(
-        `${JUDGE0_URL}/submissions/batch?tokens=${tokens}&base64_encoded=false&fields=status,stdout,stderr,compile_output,time,memory`,
-        {
-          headers: { 'X-RapidAPI-Key': JUDGE0_API_KEY },
-        }
-      );
-      
-      results = resultResponse.data.submissions;
-      pending = results.some((r) => r.status.id === 1 || r.status.id === 2); 
+    results = response.data?.submissions || [];
+    if (results.length === tokens.length && results.every((result) => TERMINAL_STATUS_IDS.has(result.status?.id))) {
+      return results.map((result, index) => ({
+        ...result,
+        testCase: index + 1,
+        status: normalizeStatus(result.status),
+        elapsedMs: Date.now() - startedAt,
+      }));
     }
-
-    return results;
-  } catch (error) {
-    console.error('Sandbox execution error:', error);
-    throw new Error('Failed to execute code in sandbox');
   }
-};
+
+  throw new Error("Judge0 execution timed out while waiting for results");
+}

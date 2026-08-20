@@ -58,6 +58,8 @@ export function errorHandler(err, req, res, next) {
     });
   }
 
+  if (err?.statusCode) return res.status(err.statusCode).json({ success: false, message: err.message || "Request failed" });
+
   return res.status(500).json({
     success: false,
     message:

@@ -1,0 +1,1 @@
+import {getConfig,updateConfig} from "./adminConfig.service.js";export async function get(req,res,next){try{res.json({success:true,data:await getConfig()})}catch(e){next(e)}}export async function update(req,res,next){try{res.json({success:true,data:await updateConfig(req.body||{})})}catch(e){next(e)}}

@@ -32,6 +32,26 @@ export async function protect(req, res, next) {
   }
 }
 
+export async function optionalProtect(req, res, next) {
+  try {
+    const token = req.headers.authorization?.startsWith("Bearer ")
+      ? req.headers.authorization.slice(7)
+      : cookie(req, env.accessCookieName);
+
+    if (!token) return next();
+
+    const decoded = jwt.verify(token, env.accessSecret);
+    const user = await User.findById(decoded.sub);
+    if (user && user.status === "active") {
+      req.user = user;
+      req.auth = decoded;
+    }
+  } catch {
+    // Optional authentication must never turn a public read endpoint into a 401.
+  }
+  next();
+}
+
 export function authorizeRoles(...roles) {
   return (req, res, next) => {
     if (!req.user) return errorResponse(res, "Authentication required", 401);

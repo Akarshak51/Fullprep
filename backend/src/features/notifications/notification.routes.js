@@ -1,0 +1,1 @@
+import express from "express";import {protect} from "../../shared/middlewares/authMiddleware.js";import * as c from "./notification.controller.js";const r=express.Router();r.use(protect);r.get("/",c.list);r.patch("/:id/read",c.read);r.post("/read-all",c.all);export default r;

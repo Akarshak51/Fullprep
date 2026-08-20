@@ -1,0 +1,1 @@
+import {summary} from "./dashboard.service.js";export async function getDashboard(req,res,next){try{res.json({success:true,data:await summary(req.user._id)})}catch(e){next(e)}}

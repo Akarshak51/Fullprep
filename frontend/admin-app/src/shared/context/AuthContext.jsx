@@ -1,24 +1,4 @@
-import { createContext, useState } from 'react'
-
-export const AuthContext = createContext(null)
-
-const MOCK_ADMIN = { id: 'a1', name: 'Priya Sharma', email: 'priya@fullprep.dev', role: 'super_admin', permissions: ['*'] }
-
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('fp_admin_user')
-    return saved ? JSON.parse(saved) : MOCK_ADMIN // admin app assumes an authenticated session for demo purposes
-  })
-
-  const login = async () => {
-    setUser(MOCK_ADMIN)
-    localStorage.setItem('fp_admin_user', JSON.stringify(MOCK_ADMIN))
-    return MOCK_ADMIN
-  }
-
-  const logout = () => { setUser(null); localStorage.removeItem('fp_admin_user') }
-
-  const can = (permission) => user?.role === 'super_admin' || user?.permissions?.includes('*') || user?.permissions?.includes(permission)
-
-  return <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, logout, can }}>{children}</AuthContext.Provider>
-}
+import {createContext,useEffect,useState} from "react";import {apiClient} from "../services/apiClient.js";import {ENDPOINTS} from "../../config/apiEndpoints.js";
+export const AuthContext=createContext(null);
+export function AuthProvider({children}){const [user,setUser]=useState(()=>{const s=localStorage.getItem("fp_admin_user");return s?JSON.parse(s):null});useEffect(()=>{if(user)localStorage.setItem("fp_admin_user",JSON.stringify(user));else localStorage.removeItem("fp_admin_user")},[user]);
+const login=async(email,password)=>{const r=await apiClient.post(ENDPOINTS.auth.login,{email,password});const u=r.user||r;if(!["admin","moderator"].includes(u.role))throw new Error("Admin access required");setUser(u);return u};const logout=async()=>{try{await apiClient.post(ENDPOINTS.auth.logout,{})}finally{setUser(null)}};const can=p=>user?.role==="admin"||user?.permissions?.includes("*")||user?.permissions?.includes(p);return <AuthContext.Provider value={{user,isAuthenticated:!!user,login,logout,can}}>{children}</AuthContext.Provider>}

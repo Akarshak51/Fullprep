@@ -1,0 +1,1 @@
+import * as s from "./report.service.js";export async function list(req,res,next){try{res.json({success:true,data:await s.listReports()})}catch(e){next(e)}}export async function resolve(req,res,next){try{const x=await s.resolveReport(req.params.id,req.user._id);res.json({success:true,data:x?{...x,id:x._id}:null})}catch(e){next(e)}}

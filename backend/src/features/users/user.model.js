@@ -27,7 +27,7 @@ const schema = new mongoose.Schema({
   passwordHash: { type: String, select: false },
   avatar: String,
   bio: { type: String, default: "" },
-  role: { type: String, enum: ["student", "moderator", "admin"], default: "student" },
+  role: { type: String, enum: ["student", "moderator", "admin", "super_admin"], default: "student" },
   status: { type: String, enum: ["active", "suspended"], default: "active" },
   xp: { type: Number, default: 0, index: true },
   level: { type: Number, default: 1 },
@@ -39,6 +39,7 @@ const schema = new mongoose.Schema({
   badges: [{ badgeId: String, earnedAt: { type: Date, default: Date.now } }],
   achievements: [{ key: String, title: String, earnedAt: { type: Date, default: Date.now } }],
   settings: { type: settings, default: () => ({}) },
+  aiUsage: { day: { type: String, default: "" }, count: { type: Number, default: 0 } },
 }, { timestamps: true });
 
 export default mongoose.model("User", schema);

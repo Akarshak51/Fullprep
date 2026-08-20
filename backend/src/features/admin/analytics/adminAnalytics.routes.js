@@ -1,0 +1,1 @@
+import express from "express";import {protect,authorizeRoles} from "../../../shared/middlewares/authMiddleware.js";import {getAnalytics} from "./adminAnalytics.controller.js";const r=express.Router();r.use(protect,authorizeRoles("admin","super_admin","moderator"));r.get("/",getAnalytics);export default r;

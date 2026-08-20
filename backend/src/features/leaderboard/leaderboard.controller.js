@@ -1,0 +1,1 @@
+import {getLeaderboard,getMyRank} from "./leaderboard.service.js";export async function list(req,res,next){try{res.json({success:true,data:await getLeaderboard()})}catch(e){next(e)}}export async function me(req,res,next){try{res.json({success:true,data:await getMyRank(req.user._id)})}catch(e){next(e)}}

@@ -1,0 +1,1 @@
+import {search} from "./search.service.js";export async function globalSearch(req,res,next){try{const q=(req.query.q||"").trim();res.json({success:true,data:q?await search(q):{problems:[],learningPaths:[],users:[]}})}catch(e){next(e)}}

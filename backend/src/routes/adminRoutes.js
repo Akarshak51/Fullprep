@@ -1,5 +1,1 @@
-import express from "express";
-
-const router = express.Router();
-
-export default router;
+import express from "express";import problemRoutes from "../features/admin/problems/adminProblem.routes.js";import {adminLearningPathRouter as learningPathRoutes} from "../features/learning-paths/learningPath.routes.js";import {adminContestRouter as contestRoutes} from "../features/contests/contest.routes.js";import userRoutes from "../features/admin/users/adminUser.routes.js";import analyticsRoutes from "../features/admin/analytics/adminAnalytics.routes.js";import configRoutes from "../features/admin/config/adminConfig.routes.js";import reportRoutes from "../features/admin/reports/report.routes.js";import overviewRoutes from "../features/admin/overview.routes.js";const r=express.Router();r.use("/problems",problemRoutes);r.use("/learning-paths",learningPathRoutes);r.use("/contests",contestRoutes);r.use("/users",userRoutes);r.use("/analytics",analyticsRoutes);r.use("/config",configRoutes);r.use("/reports",reportRoutes);r.use("/overview",overviewRoutes);export default r;

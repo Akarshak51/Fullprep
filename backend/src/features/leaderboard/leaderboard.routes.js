@@ -1,0 +1,1 @@
+import express from "express";import {optionalProtect,protect} from "../../shared/middlewares/authMiddleware.js";import * as c from "./leaderboard.controller.js";const r=express.Router();r.get("/",optionalProtect,c.list);r.get("/me",protect,c.me);export default r;

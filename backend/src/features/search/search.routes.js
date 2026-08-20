@@ -1,0 +1,1 @@
+import express from "express";import {optionalProtect} from "../../shared/middlewares/authMiddleware.js";import {globalSearch} from "./search.controller.js";const r=express.Router();r.get("/",optionalProtect,globalSearch);export default r;

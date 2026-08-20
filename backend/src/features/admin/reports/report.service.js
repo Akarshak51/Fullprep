@@ -1,0 +1,1 @@
+import Report from "./report.model.js";export async function listReports(){return (await Report.find().sort({createdAt:-1}).lean()).map(x=>({...x,id:x._id,reporter:x.reporter||"Unknown"}))}export async function resolveReport(id,userId){return Report.findByIdAndUpdate(id,{status:"resolved",resolvedAt:new Date(),resolvedBy:userId},{new:true}).lean()}

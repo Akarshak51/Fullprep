@@ -1,0 +1,3 @@
+import Config from "./config.model.js";
+const DEFAULT={judge:{timeoutMs:2000,memoryLimitMb:256,allowedLanguages:["javascript","python","java","cpp"]},ai:{hintStagesEnabled:3,dailyHintLimit:10,model:"gemini-1.5-flash"},gamification:{xpEasy:10,xpMedium:25,xpHard:50,streakGraceHours:6},featureFlags:{contestsEnabled:true,aiChatEnabled:true,leaderboardPublic:true,newSignupsEnabled:true}};
+export async function getConfig(){const x=await Config.findOne({key:"platform"}).lean();return x?.value||DEFAULT}export async function updateConfig(p){const current=await getConfig();const value={...current,...p};await Config.findOneAndUpdate({key:"platform"},{$set:{value}},{upsert:true,new:true});return value}

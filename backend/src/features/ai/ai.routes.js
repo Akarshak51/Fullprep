@@ -1,11 +1,1 @@
-import express from 'express';
-import { getHint, debugCode } from './ai.controller.js';
-import { protect } from '../../shared/middlewares/authMiddleware.js';
-
-const router = express.Router();
-
-// Apply the protect middleware to ensure only authenticated users can use the AI features
-router.post('/hint', protect, getHint);
-router.post('/debug', protect, debugCode);
-
-export default router;
+import express from "express";import {protect} from "../../shared/middlewares/authMiddleware.js";import * as c from "./ai.controller.js";const r=express.Router();r.use(protect);r.post("/hint",c.getHint);r.post("/debug",c.debugCode);r.post("/complexity",c.complexity);r.post("/explain",c.explain);r.post("/chat",c.chat);export default r;

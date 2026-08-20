@@ -13,7 +13,7 @@ export function useCodeExecution(problemId) {
     setRunning(true)
     setSubmitResult(null)
     try {
-      const res = await runCode({ code, language })
+      const res = await runCode({ code, language, problemId })
       setRunResult(res)
     } finally {
       setRunning(false)
